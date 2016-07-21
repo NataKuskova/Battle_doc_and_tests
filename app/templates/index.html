@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Battle</title>
+        <style>
+                #game{
+                    font-family: Arial;
+                    font-size: 16px;
+                    text-align: center;
+                    color: #fff;
+                    width: 540px;
+                    position: absolute;
+                    top: 45%;
+                    left: 50%;
+                    margin-top: -180px;
+                    margin-left: -250px;
+                    background-color: rgba(81, 96, 113, 0.8);
+                    padding-bottom: 30px;
+                    border: 1px solid #313945;
+                }
+                input[type='text'], #strategy{
+                    font-family: Arial;
+                    margin-bottom: 20px;
+                    padding: 5px 10px;
+                    font-size: 13px;
+                    width: 168px;
+                }
+                #start{
+                    width: 150px;
+                    height: 35px;
+                    border: none;
+                    background-color: #7389A2;
+                    color: #fff;
+                    cursor: pointer;
+                    font-size: 13px;
+                }
+                #start:hover{
+                    background-color: #4B5968;
+                }
+        </style>
+    </head>
+    <body>
+        <div id="game">
+            <form method="POST" action="/form">
+                <h2>Battle</h2>
+                <br>
+                <p>Общее количество солдат и машин от 5 до 10: </p>
+                <input type="text" name="soldiers" id="soldiers" placeholder="Солдаты..." required="">
+                <input type="text" name="vehicles" id="vehicles" placeholder="Машины..." required="">
+                <br>
+                <label for="squads_number">Количество отрядов в армии (&gt;=2): </label>
+                <input type="text" name="squads_number" id="squads_number" required="">
+                <br>
+                <label for="armies_number">Количество армий (&gt;=2): </label>
+                <input type="text" name="armies_number" id="armies_number" required="">
+                <br>
+                <label for="strategy">Стратегия: </label>
+                <select name="strategy" id="strategy" required="">
+                    <option>random</option>
+                    <option>weakest</option>
+                    <option>strongest</option>
+                </select>
+                <br><br>
+                <input type="submit" value="Старт" name="start" id="start">
+            </form>
+        </div>
+    </body>
+</html>
