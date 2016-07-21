@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>app.AttackStrategy &mdash; Battle_doc_and_tests 1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Battle_doc_and_tests 1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for app.AttackStrategy</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+
+<div class="viewcode-block" id="AttackStrategy"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.AttackStrategy">[docs]</a><span class="k">class</span> <span class="nc">AttackStrategy</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ABCMeta</span>
+
+    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="AttackStrategy.select_squad"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.AttackStrategy.select_squad">[docs]</a>    <span class="k">def</span> <span class="nf">select_squad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">army</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A choice of a squad according to a strategy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            army: Army.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Random"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.Random">[docs]</a><span class="k">class</span> <span class="nc">Random</span><span class="p">(</span><span class="n">AttackStrategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A random strategy.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Random.select_squad"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.Random.select_squad">[docs]</a>    <span class="k">def</span> <span class="nf">select_squad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">army</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A choice of a squad in a random way.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            army: Army.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            It returns a random squad.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">squads</span> <span class="o">=</span> <span class="n">army</span><span class="o">.</span><span class="n">get_squads</span>
+        <span class="n">random_squad</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">squads</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">squads</span><span class="p">[</span><span class="n">random_squad</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="Weakest"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.Weakest">[docs]</a><span class="k">class</span> <span class="nc">Weakest</span><span class="p">(</span><span class="n">AttackStrategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Strategy of attacking the weakest squad.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Weakest.select_squad"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.Weakest.select_squad">[docs]</a>    <span class="k">def</span> <span class="nf">select_squad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">army</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A choice of the weakest squad.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            army: Army.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            It returns the weakest squad.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">squads</span> <span class="o">=</span> <span class="n">army</span><span class="o">.</span><span class="n">get_squads</span>
+        <span class="n">min_experience</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">get_experience</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">squads</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">squads</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">get_experience</span> <span class="o">==</span> <span class="n">min_experience</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">res</span></div></div>
+
+
+<div class="viewcode-block" id="Strongest"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.Strongest">[docs]</a><span class="k">class</span> <span class="nc">Strongest</span><span class="p">(</span><span class="n">AttackStrategy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Strategy of attacking the strongest squad.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Strongest.select_squad"><a class="viewcode-back" href="../../app.html#app.AttackStrategy.Strongest.select_squad">[docs]</a>    <span class="k">def</span> <span class="nf">select_squad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">army</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A choice of the strongest squad.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            army: Army.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            It returns the strongest squad.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">squads</span> <span class="o">=</span> <span class="n">army</span><span class="o">.</span><span class="n">get_squads</span>
+        <span class="n">max_experience</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">get_experience</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">squads</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">squads</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">get_experience</span> <span class="o">==</span> <span class="n">max_experience</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">res</span></div></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Natali.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
